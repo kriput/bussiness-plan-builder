@@ -5,6 +5,7 @@ import com.taltech.app.finance.repository.FinancialForecastRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -12,6 +13,7 @@ public class FinancialForecastService {
 
     private final FinancialForecastRepository repository;
 
+    @Transactional
     public FinancialForecast createForecast(FinancialForecast forecast) {
         return repository.save(forecast);
     }
@@ -22,7 +24,7 @@ public class FinancialForecastService {
         );
     }
 
-    public List<FinancialForecast> getAll() {
+    public List<FinancialForecast> findAll() {
         return repository.findAll();
     }
 }

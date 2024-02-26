@@ -30,6 +30,6 @@ public class FinancialForecastController {
 
     @GetMapping("")
     public List<FinancialForecast> getAllFinancialForecasts() {
-        return financialForecastService.getAll();
+        return financialForecastService.findAll();
     }
 }
