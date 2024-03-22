@@ -3,7 +3,7 @@ package com.taltech.app.finance;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(classes = FinanceApplicationTests.class)
 class FinanceApplicationTests {
 
 	@Test

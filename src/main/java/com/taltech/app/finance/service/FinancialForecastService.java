@@ -20,7 +20,7 @@ public class FinancialForecastService {
 
     public FinancialForecast findForecastById(long id) {
         return repository.findById(id).orElseThrow(
-            () -> new IllegalArgumentException("No financial forecast found with provided id!")
+            () -> new IllegalArgumentException("No financial forecast found with provided id")
         );
     }
 
