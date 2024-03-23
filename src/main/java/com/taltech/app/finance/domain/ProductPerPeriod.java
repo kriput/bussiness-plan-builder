@@ -17,8 +17,6 @@ public class ProductPerPeriod {
 
     private Double costPerItem;
 
-    private Integer periodYear;
-
-    private Integer periodMonth;
+    private Integer year;
 
 }

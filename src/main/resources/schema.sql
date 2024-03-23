@@ -37,12 +37,11 @@ CREATE TABLE IF NOT EXISTS expense
 CREATE TABLE IF NOT EXISTS product_per_period
 (
     product_id    BIGINT NULL,
-    quantity      INT    NOT NULL,
-    for_export    FLOAT  NOT NULL,
-    price         FLOAT  NOT NULL,
-    cost_per_item FLOAT  NOT NULL,
-    period_year   INT    NOT NULL,
-    period_month  INT    NULL,
+    quantity      INT    NULL,
+    for_export    FLOAT  NULL,
+    price         FLOAT  NULL,
+    cost_per_item FLOAT  NULL,
+    year   INT    NULL,
     FOREIGN KEY (product_id)
         REFERENCES product (id)
 )
