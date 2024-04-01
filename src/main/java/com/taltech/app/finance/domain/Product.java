@@ -15,7 +15,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
@@ -40,7 +39,7 @@ public class Product {
     private FinancialForecast financialForecast;
 
     @Column(name="financial_forecast_id", updatable=false, insertable=false)
-    public Long financialForecastId;
+    private Long financialForecastId;
 
     @Enumerated(value = EnumType.STRING)
     private Unit unit;
