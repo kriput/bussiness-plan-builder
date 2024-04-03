@@ -1,6 +1,6 @@
 package com.taltech.app.finance.enums;
 
-public enum ExpenseType {
+public enum FinancialOperationSubtype {
     // Production
     RAW_MATERIALS,
     OUTSOURCED_SERVICES,

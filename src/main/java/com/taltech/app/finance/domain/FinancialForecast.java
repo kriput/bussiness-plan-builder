@@ -39,5 +39,5 @@ public class FinancialForecast {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "financial_forecast_id", referencedColumnName = "id")
-    private List<Expense> expenses = new ArrayList<>();
+    private List<FinancialOperation> financialOperations = new ArrayList<>();
 }

@@ -1,7 +1,8 @@
 package com.taltech.app.finance.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.taltech.app.finance.enums.ExpenseType;
+import com.taltech.app.finance.enums.FinancialOperationSubtype;
+import com.taltech.app.finance.enums.FinancialOperationType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -19,15 +20,18 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "expense")
-public class Expense {
+@Table(name = "financial_operation")
+public class FinancialOperation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(value = EnumType.STRING)
-    private ExpenseType type;
+    private FinancialOperationType type;
+
+    @Enumerated(value = EnumType.STRING)
+    private FinancialOperationSubtype subtype;
 
     @ManyToOne
     @JsonIgnore
@@ -35,9 +39,9 @@ public class Expense {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
-        name = "expense_per_period",
-        joinColumns =@JoinColumn(name = "expense_id",
+        name = "total_per_period",
+        joinColumns =@JoinColumn(name = "financial_operation_id",
             referencedColumnName = "id")
     )
-    private List<ExpensePerPeriod> expensesPerPeriod;
+    private List<TotalPerPeriod> expensesPerPeriod;
 }

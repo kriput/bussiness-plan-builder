@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 @Embeddable
-@Table(name = "expense_per_period")
-public class ExpensePerPeriod {
+@Table(name = "total_per_period")
+public class TotalPerPeriod {
     
     private Double sum;
     private Integer year;
