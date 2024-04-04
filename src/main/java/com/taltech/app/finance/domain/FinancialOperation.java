@@ -43,5 +43,5 @@ public class FinancialOperation {
         joinColumns =@JoinColumn(name = "financial_operation_id",
             referencedColumnName = "id")
     )
-    private List<TotalPerPeriod> expensesPerPeriod;
+    private List<TotalPerPeriod> totalsPerPeriod;
 }
