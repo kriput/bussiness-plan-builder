@@ -1,6 +1,8 @@
 package com.taltech.app.finance.enums;
 
 public enum FinancialOperationSubtype {
+    // EXPENSES
+
     // Production
     RAW_MATERIALS,
     OUTSOURCED_SERVICES,
@@ -31,5 +33,9 @@ public enum FinancialOperationSubtype {
 
     // Other taxes
     OTHER_TAXES,
-    VAT
+
+    // INCOMES
+    SALES_INCOME,
+    OTHER_INCOME
+
 }
