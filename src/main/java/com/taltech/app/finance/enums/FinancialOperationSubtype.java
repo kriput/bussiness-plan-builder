@@ -36,6 +36,8 @@ public enum FinancialOperationSubtype {
 
     // INCOMES
     SALES_INCOME,
+    SALES_INCOME_WITH_TAX,
+    SALES_INCOME_WITHOUT_TAX,
     OTHER_INCOME
 
 }
