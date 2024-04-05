@@ -18,7 +18,7 @@ public class FinancialOperationController {
 
     @RequestMapping("/{forecastId}/add")
     public FinancialOperation addExpenseByForecastId(@PathVariable Long forecastId, @RequestBody FinancialOperation expense) {
-        return financialOperationService.addExpenseByForecastId(forecastId, expense);
+        return financialOperationService.addFinancialOperationByForecastId(forecastId, expense);
     }
 
     @RequestMapping("/{forecastId}/expenses")
