@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS financial_operation
     financial_forecast_id BIGINT  NULL,
     type                  VARCHAR NOT NULL,
     subtype               VARCHAR NULL,
+    tax                   FLOAT   NULL,
     FOREIGN KEY (financial_forecast_id)
         REFERENCES financial_forecast (id)
 );

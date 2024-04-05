@@ -33,6 +33,8 @@ public class FinancialOperation {
     @Enumerated(value = EnumType.STRING)
     private FinancialOperationSubtype subtype;
 
+    private Double tax;
+
     @ManyToOne
     @JsonIgnore
     private FinancialForecast financialForecast;

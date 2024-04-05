@@ -21,7 +21,7 @@ public class FinancialOperationService {
         FinancialForecast forecast = financialForecastService.findForecastById(forecastId);
         Optional<FinancialOperation> existingOperation = forecast.getFinancialOperations().stream()
             .filter(savedOperation ->
-                savedOperation.getSubtype().equals(financialOperation.getSubtype())).findAny();
+                savedOperation.getSubtype().equals(financialOperation.getSubtype()) && isTaxValueSame(savedOperation.getTax(), financialOperation.getTax())).findAny();
         if (existingOperation.isEmpty()) {
             financialOperation.setFinancialForecast(forecast);
             return financialOperationRepository.save(financialOperation);
@@ -37,6 +37,16 @@ public class FinancialOperationService {
             }
         }
         return financialOperationRepository.save(existingOperation.get());
+    }
+
+    private boolean isTaxValueSame(Double savedTaxValue, Double newTaxValue) {
+        if (newTaxValue == null && savedTaxValue == null) {
+            return true;
+        } else if (newTaxValue != null && savedTaxValue == null) {
+            return false;
+        } else {
+            return savedTaxValue.equals(newTaxValue);
+        }
     }
 
     public List<FinancialOperation> getExpensesForForecast(Long forecastId) {
