@@ -17,7 +17,7 @@ public class FinancialOperationService {
     private final FinancialOperationRepository financialOperationRepository;
     private final FinancialForecastService financialForecastService;
 
-    public FinancialOperation addFinancialOperationByForecastId(Long forecastId, FinancialOperation financialOperation) {
+    public FinancialOperation addFinancialOperationByForecastId(Long forecastId, FinancialOperation financialOperation, boolean isManualInsert) {
         FinancialForecast forecast = financialForecastService.findForecastById(forecastId);
         Optional<FinancialOperation> existingOperation = forecast.getFinancialOperations().stream()
             .filter(savedOperation ->
@@ -30,7 +30,11 @@ public class FinancialOperationService {
                 Optional<TotalPerPeriod> existingTotalPerPeriod = existingOperation.get().getTotalsPerPeriod().stream()
                     .filter(t -> t.getYear().equals(totalPerPeriod.getYear())).findAny();
                 if (existingTotalPerPeriod.isPresent()) {
-                    existingTotalPerPeriod.get().setSum(existingTotalPerPeriod.get().getSum() + totalPerPeriod.getSum());
+                    if (isManualInsert) {
+                        existingTotalPerPeriod.get().setSum(totalPerPeriod.getSum());
+                    } else {
+                        existingTotalPerPeriod.get().setSum(existingTotalPerPeriod.get().getSum() + totalPerPeriod.getSum());
+                    }
                 } else {
                     existingOperation.get().getTotalsPerPeriod().add(totalPerPeriod);
                 }
