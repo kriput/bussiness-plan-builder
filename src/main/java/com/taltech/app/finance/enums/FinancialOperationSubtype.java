@@ -34,10 +34,15 @@ public enum FinancialOperationSubtype {
     // Other taxes
     OTHER_TAXES,
 
+    // loans
+    LOAN,
+    INTEREST,
+
     // INCOMES
     SALES_INCOME,
     SALES_INCOME_WITH_TAX,
     SALES_INCOME_WITHOUT_TAX,
-    OTHER_INCOME
+    OTHER_INCOME,
+    SUBSIDIES
 
 }
