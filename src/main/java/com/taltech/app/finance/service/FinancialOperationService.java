@@ -17,30 +17,52 @@ public class FinancialOperationService {
     private final FinancialOperationRepository financialOperationRepository;
     private final FinancialForecastService financialForecastService;
 
-    public FinancialOperation addFinancialOperationByForecastId(Long forecastId, FinancialOperation financialOperation, boolean isManualInsert) {
+    public FinancialOperation addFinancialOperationByForecastId(Long forecastId,
+        FinancialOperation financialOperation, boolean isManualInsert) {
         FinancialForecast forecast = financialForecastService.findForecastById(forecastId);
-        Optional<FinancialOperation> existingOperation = forecast.getFinancialOperations().stream()
-            .filter(savedOperation ->
-                savedOperation.getSubtype().equals(financialOperation.getSubtype()) && isTaxValueSame(savedOperation.getTax(), financialOperation.getTax())).findAny();
+
+        Optional<FinancialOperation> existingOperation = findExistingOperation(
+            financialOperation, forecast);
+
         if (existingOperation.isEmpty()) {
             financialOperation.setFinancialForecast(forecast);
             return financialOperationRepository.save(financialOperation);
         } else {
             for (TotalPerPeriod totalPerPeriod : financialOperation.getTotalsPerPeriod()) {
-                Optional<TotalPerPeriod> existingTotalPerPeriod = existingOperation.get().getTotalsPerPeriod().stream()
-                    .filter(t -> t.getYear().equals(totalPerPeriod.getYear())).findAny();
-                if (existingTotalPerPeriod.isPresent()) {
-                    if (isManualInsert) {
-                        existingTotalPerPeriod.get().setSum(totalPerPeriod.getSum());
-                    } else {
-                        existingTotalPerPeriod.get().setSum(existingTotalPerPeriod.get().getSum() + totalPerPeriod.getSum());
-                    }
-                } else {
-                    existingOperation.get().getTotalsPerPeriod().add(totalPerPeriod);
-                }
+                addTotalToExistingOperation(isManualInsert, totalPerPeriod,
+                    existingOperation.get());
             }
         }
         return financialOperationRepository.save(existingOperation.get());
+    }
+
+    private void addTotalToExistingOperation(boolean isManualInsert, TotalPerPeriod totalPerPeriod,
+        FinancialOperation existingOperation) {
+
+        Optional<TotalPerPeriod> existingTotalPerPeriod = existingOperation.getTotalsPerPeriod()
+            .stream()
+            .filter(t -> t.getYear().equals(totalPerPeriod.getYear())).findAny();
+
+        if (existingTotalPerPeriod.isPresent()) {
+            if (isManualInsert) {
+                existingTotalPerPeriod.get().setSum(totalPerPeriod.getSum());
+            } else {
+                existingTotalPerPeriod.get()
+                    .setSum(existingTotalPerPeriod.get().getSum() + totalPerPeriod.getSum());
+            }
+        } else {
+            existingOperation.getTotalsPerPeriod().add(totalPerPeriod);
+        }
+    }
+
+    private Optional<FinancialOperation> findExistingOperation(
+        FinancialOperation financialOperation, FinancialForecast forecast) {
+        return forecast.getFinancialOperations().stream()
+            .filter(savedOperation ->
+                savedOperation.getSubtype().equals(financialOperation.getSubtype())
+                    && savedOperation.getType().equals(financialOperation.getType())
+                    && isTaxValueSame(savedOperation.getTax(), financialOperation.getTax()))
+            .findAny();
     }
 
     private boolean isTaxValueSame(Double savedTaxValue, Double newTaxValue) {
@@ -54,11 +76,13 @@ public class FinancialOperationService {
     }
 
     public List<FinancialOperation> getExpensesForForecast(Long forecastId) {
-        return financialOperationRepository.findAllByFinancialForecast_IdAndType(forecastId, FinancialOperationType.EXPENSE);
+        return financialOperationRepository.findAllByFinancialForecast_IdAndType(forecastId,
+            FinancialOperationType.EXPENSE);
     }
 
     public List<FinancialOperation> getIncomesForForecast(Long forecastId) {
-        return financialOperationRepository.findAllByFinancialForecast_IdAndType(forecastId, FinancialOperationType.INCOME);
+        return financialOperationRepository.findAllByFinancialForecast_IdAndType(forecastId,
+            FinancialOperationType.INCOME);
     }
 
 }
