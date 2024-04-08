@@ -4,6 +4,7 @@ import com.taltech.app.finance.domain.FinancialOperation;
 import com.taltech.app.finance.service.FinancialOperationService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,6 +38,11 @@ public class FinancialOperationController {
     @GetMapping("{forecastId}/incomes")
     public List<FinancialOperation> getIncomesForForecast(@PathVariable Long forecastId) {
         return financialOperationService.getIncomesForForecast(forecastId);
+    }
+
+    @DeleteMapping("/{operationId}")
+    public void deleteOperationById(@PathVariable Long operationId) {
+        financialOperationService.deleteOperationById(operationId);
     }
 
 }

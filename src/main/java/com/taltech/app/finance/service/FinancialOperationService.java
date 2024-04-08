@@ -85,4 +85,8 @@ public class FinancialOperationService {
             FinancialOperationType.INCOME);
     }
 
+    public void deleteOperationById(Long forecastId) {
+        financialOperationRepository.deleteById(forecastId);
+    }
+
 }
