@@ -1,13 +1,10 @@
 package com.taltech.app.finance.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.taltech.app.finance.enums.Unit;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,9 +37,6 @@ public class Product {
 
     @Column(name="financial_forecast_id", updatable=false, insertable=false)
     private Long financialForecastId;
-
-    @Enumerated(value = EnumType.STRING)
-    private Unit unit;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(

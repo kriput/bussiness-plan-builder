@@ -29,10 +29,6 @@ public class FinancialForecast {
 
     private Double sellingInCreditRate;
 
-    private Double buildingDeprecationRate;
-
-    private Double equipmentDeprecationRate;
-
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "financial_forecast_id", referencedColumnName = "id")
     private List<Product> products = new ArrayList<>();
