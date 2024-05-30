@@ -1,4 +1,4 @@
-package com.taltech.app.finance;
+package com.taltech.app.finance.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

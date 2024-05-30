@@ -40,6 +40,11 @@ public class FinancialOperationController {
         return financialOperationService.getIncomesForForecast(forecastId);
     }
 
+    @PostMapping("/{forecastId}/delete")
+    public void deleteOperationById(@PathVariable Long forecastId, @RequestBody FinancialOperation operation) {
+        financialOperationService.subtractFinancialOperationByForecastId(forecastId, operation);
+    }
+
     @DeleteMapping("/{operationId}")
     public void deleteOperationById(@PathVariable Long operationId) {
         financialOperationService.deleteOperationById(operationId);

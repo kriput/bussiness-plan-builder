@@ -17,7 +17,8 @@ public class ProductService {
 
     @Transactional
     public Product saveProduct(Product product) {
-        FinancialForecast forecast = financialForecastService.findForecastById(product.getFinancialForecastId());
+        FinancialForecast forecast = financialForecastService.findForecastById(
+            product.getFinancialForecastId());
         product.setFinancialForecast(forecast);
         return productRepository.save(product);
     }
@@ -26,13 +27,11 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product findProductById(long id) {
-        return productRepository.findById(id).orElseThrow(
-            () -> new IllegalArgumentException("No product found with provided id")
-        );
-    }
-
     public List<Product> findProductsByForecast(long id) {
         return productRepository.findAllByFinancialForecast_Id(id);
+    }
+
+    public void deleteProductById(Long productId) {
+        productRepository.deleteById(productId);
     }
 }

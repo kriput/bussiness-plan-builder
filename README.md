@@ -1,1 +1,3 @@
-# bussiness-plan-builder
+# business-plan-builder
+
+Run application: `./gradlew Bootrun`

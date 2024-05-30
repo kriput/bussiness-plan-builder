@@ -28,6 +28,7 @@ public class FinancialForecastService {
         return repository.findAll();
     }
 
+    @Transactional
     public void deleteForecastById(Long forecastId) {
         repository.deleteById(forecastId);
     }
